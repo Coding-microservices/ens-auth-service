@@ -1,0 +1,47 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: true
+    show_sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/auth_db
+    username: username
+    password: password
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: d36bf0800a08e7
+    password: 26cd8f26dba267
+
+app:
+  jwtSecret: c3e6b056a1622eb73e64f2c4776a9511616a200182fed315ee473b5c31074110d3ff72fcaf6724ad4261e3b39fafb718f42c8d53045967366b9afd53b3237cb8a22a7e3da3e4cf6d0fcdfd91cd5d8a0ad3e6b3a60b201ed417a522d4e0ea0de7e81b3152bc1d9db8e1f46a17ee4e966c6aa2463d16bcff0d605b8ea2d9482d3ecc5266a0b4b58e696f34d41bd2009e2f1203a3918b26f44b159f63bfc4fe1b112493dc384e7ace54d3f8cac0f88bbf5a2e4997391c9d8929a2662864134ed054c5e86609826e54d0f127c6c569f12df8bce05016d6c82f1096134cb152a5c2002e5d83a08dc294828ab39cfd7d943ccb8ac7153485ee107fe7a148a1ca1afa80
+  refreshTokenExpirationS: 604800
+  jwtExpirationS: 3600
+  otp:
+    resetPasswordExpirationMinutes: 5
+    loginExpirationMinutes: 5
+    emailExpirationMinutes: 60
+  tempPassword:
+    expirationHours: 48

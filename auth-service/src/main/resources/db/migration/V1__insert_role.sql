@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS roles
+(
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO roles (id, name)
+VALUES (1, 'ADMIN'),
+       (2, 'USER')

@@ -5,6 +5,13 @@ spring:
   application:
     name: auth-service
 
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+
   jpa:
     hibernate:
       ddl-auto: validate

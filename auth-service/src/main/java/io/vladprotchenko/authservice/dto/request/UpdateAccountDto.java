@@ -27,5 +27,5 @@ public class UpdateAccountDto {
     @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Invalid phone number format")
     String phoneNumber;
 
-    Boolean isTwoFactorEnabled;
+    ContactDataRequestDto contactData;
 }

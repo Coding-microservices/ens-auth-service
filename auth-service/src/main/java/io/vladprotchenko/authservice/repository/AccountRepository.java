@@ -33,22 +33,24 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
                 )
                 AND (
                 (:admins IS TRUE AND a.role.name = 'ADMIN') OR
-                (:clients IS TRUE AND a.role.name = 'USER')
+                (:users IS TRUE AND a.role.name = 'USER')
                )
-               AND (
-               (:blocked is true and a.blockedUntil > :utcNow ) or
-               (:blocked is false and (a.blockedUntil is null or a.blockedUntil <= :utcNow))
-               )
-               AND (:deleted = a.isSoftDeleted)
+
         """)
 //    TODO: fix
     Page<UserListViewDto> searchUsers(
         @Param("searchText") String searchText,
         @Param("admins") boolean admins,
         @Param("users") boolean users,
-        @Param("blocked") boolean blocked,
-        @Param("deleted") boolean deleted,
-        @Param("utcNow") Instant utcNow,
+//        @Param("blocked") boolean blocked,
+//        @Param("deleted") boolean deleted,
+//        @Param("utcNow") Instant utcNow,
         Pageable pageable
     );
 }
+
+//               AND (
+//               (:blocked is true and a.blockedUntil > :utcNow ) or
+//               (:blocked is false and (a.blockedUntil is null or a.blockedUntil <= :utcNow))
+//               )
+//               AND (:deleted = a.isSoftDeleted)

@@ -4,6 +4,13 @@ CREATE TABLE IF NOT EXISTS roles
     name VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS organizations
+(
+    id          BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name        VARCHAR(50) NOT NULL,
+    created_at  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS accounts
 (
     id                    BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -18,7 +25,9 @@ CREATE TABLE IF NOT EXISTS accounts
     created_at            TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at            TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     role_id               BIGINT      NOT NULL,
-    CONSTRAINT fk_account_role FOREIGN KEY (role_id) REFERENCES roles (id)
+    CONSTRAINT fk_account_role FOREIGN KEY (role_id) REFERENCES roles (id),
+    organization_id       BIGINT,
+    CONSTRAINT fk_account_organization FOREIGN KEY (organization_id) REFERENCES organizations (id)
 );
 
 CREATE TABLE IF NOT EXISTS temporary_passwords

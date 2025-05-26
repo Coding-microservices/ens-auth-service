@@ -31,6 +31,7 @@ import static io.vladprotchenko.ensstartercore.security.model.constant.JwtConsta
 import static io.vladprotchenko.ensstartercore.security.model.constant.JwtConstants.CLAIM_FIRST_NAME;
 import static io.vladprotchenko.ensstartercore.security.model.constant.JwtConstants.CLAIM_ROLE;
 import static io.vladprotchenko.ensstartercore.security.model.constant.JwtConstants.IS_SUPER_ADMIN_CLAIM;
+import static io.vladprotchenko.ensstartercore.security.model.constant.JwtConstants.ORGANIZATION_NAME;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
@@ -55,6 +56,9 @@ public class JwtTokenIssuer {
 
         claims.put(CLAIM_FIRST_NAME, account.getFirstName());
         claims.put(CLAIM_ROLE, role);
+//        if (account.getOrganization().getName() != null) {
+//            claims.put(ORGANIZATION_NAME, account.getOrganization().getName());
+//        }
 
         switch (role) {
             case USER:

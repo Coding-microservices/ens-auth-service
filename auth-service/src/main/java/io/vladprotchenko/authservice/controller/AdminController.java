@@ -101,8 +101,8 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @Operation(summary = "Creates new client")
-    @PostMapping("/client")
+    @Operation(summary = "Creates new user")
+    @PostMapping("/user")
     public ResponseEntity<CreateUserResponse> createClient(@RequestBody @Valid CreateUserRequest request) {
         CreateUserResponse response = userService.createClient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -64,7 +64,13 @@ public class AccountService {
     @Value("${app.tempPassword.expirationHours}") int tempPasswordExpirationHours;
 
     @Transactional
-    public CreatedAccountDto createAccount(String email, String password, Role role, @Nullable String firstName) {
+    public CreatedAccountDto createAccount(
+            String email,
+            String password,
+            Role role,
+            @Nullable String firstName,
+            @Nullable String lastName,
+            @Nullable String phoneNumber) {
         log.debug("Creating account with email: {}", email);
 
         Account account =
@@ -76,6 +82,12 @@ public class AccountService {
         if (firstName != null) {
             account.setFirstName(firstName);
         }
+        if (lastName != null) {
+            account.setLastName(lastName);
+        }
+        if (phoneNumber != null) {
+            account.setPhoneNumber(phoneNumber);
+        }
 
         String hashedPassword;
         if (password == null) {
@@ -86,6 +98,7 @@ public class AccountService {
                 new TemporaryPassword(account, hashedPassword,
                     Instant.now().plusSeconds(TimeUnit.HOURS.toSeconds(tempPasswordExpirationHours)));
             account.setTemporaryPassword(temporaryPassword);
+            log.info(password);
 
         } else {
             hashedPassword = passwordEncoder.encode(password);

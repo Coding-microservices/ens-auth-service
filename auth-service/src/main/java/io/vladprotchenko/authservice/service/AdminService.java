@@ -49,13 +49,13 @@ public class AdminService {
         accountService.validateEmailNotRegistered(email);
 
         Role role = roleRepository.findByName(UserRole.ADMIN).orElseThrow(
-            () -> {
-                log.error("Role with name: {} not found", UserRole.ADMIN);
-                return new EntityNotFoundException(
-                    String.format("Role with name: %s not found", UserRole.ADMIN));
-            });
+                () -> {
+                    log.error("Role with name: {} not found", UserRole.ADMIN);
+                    return new EntityNotFoundException(
+                            String.format("Role with name: %s not found", UserRole.ADMIN));
+                });
 
-        CreatedAccountDto accountDto = accountService.createAccount(email, null, role, null);
+        CreatedAccountDto accountDto = accountService.createAccount(email, null, role, request.getFirstName(), request.getLastName(), request.getPhoneNumber());
         Account account = accountDto.getAccount();
 
         Admin admin = new Admin().setSuperAdmin(isCreatedSuperAdmin).setAccount(account);
@@ -64,8 +64,8 @@ public class AdminService {
         log.info("Admin: {} with privilege isSuperAdmin = {} created successfully", email, isCreatedSuperAdmin);
 
         String
-            message =
-            String.format("Admin: %s with privilege isSuperAdmin = %s created successfully", email, isCreatedSuperAdmin);
+                message =
+                String.format("Admin: %s with privilege isSuperAdmin = %s created successfully", email, isCreatedSuperAdmin);
 
         return new CreateUserResponse(message, accountDto.getPassword(), accountDto.getTempPasswordExpirationHours());
     }
@@ -76,13 +76,13 @@ public class AdminService {
         accountService.validateEmailNotRegistered(email);
 
         Role role = roleRepository.findByName(UserRole.ADMIN).orElseThrow(
-            () -> {
-                log.error("Role with name: {} not found", UserRole.ADMIN);
-                return new EntityNotFoundException(
-                    String.format("Role with name: %s not found", UserRole.ADMIN));
-            });
+                () -> {
+                    log.error("Role with name: {} not found", UserRole.ADMIN);
+                    return new EntityNotFoundException(
+                            String.format("Role with name: %s not found", UserRole.ADMIN));
+                });
 
-        CreatedAccountDto accountDto = accountService.createAccount(email, null, role, null);
+        CreatedAccountDto accountDto = accountService.createAccount(email, null, role, "Vladislav", "Protchenko", "+375447429490");
         Account account = accountDto.getAccount();
 
         Admin admin = new Admin().setSuperAdmin(true).setAccount(account);
@@ -91,8 +91,8 @@ public class AdminService {
         log.info("Admin: {} with privilege isSuperAdmin = {} created successfully", email, true);
 
         String
-            message =
-            String.format("Admin: %s with privilege isSuperAdmin = %s created successfully", email, true);
+                message =
+                String.format("Admin: %s with privilege isSuperAdmin = %s created successfully", email, true);
 
         return new CreateUserResponse(message, accountDto.getPassword(), accountDto.getTempPasswordExpirationHours());
     }

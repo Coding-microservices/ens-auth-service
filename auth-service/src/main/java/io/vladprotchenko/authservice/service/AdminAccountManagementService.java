@@ -90,9 +90,9 @@ public class AdminAccountManagementService {
             request.getSearchText(),
             request.isAdmins(),
             request.isUsers(),
-            request.isBlocked(),
-            request.isDeleted(),
-            utcNow,
+//            request.isBlocked(),
+//            request.isDeleted(),
+//            utcNow,
             pageable
         );
     }

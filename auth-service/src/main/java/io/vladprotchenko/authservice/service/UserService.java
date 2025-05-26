@@ -37,7 +37,7 @@ public class UserService {
     public CreateUserResponse createClient(CreateUserRequest request) {
         log.info("Creating user with email: {}", request.email());
 
-        CreatedAccountDto accountDto = createAndRegisterUser(request.email(), null, request.firstName());
+        CreatedAccountDto accountDto = createAndRegisterUser(request.email(), null, request.firstName(), request.lastName(), request.phoneNumber());
 
         String message = String.format(
             "User with email: %s created successfully",
@@ -46,13 +46,13 @@ public class UserService {
         return new CreateUserResponse(message, accountDto.getPassword(), accountDto.getTempPasswordExpirationHours());
     }
 
-    @Transactional
-    public void register(RegistrationRequest request) {
-        log.debug("Registering user with email: {}", request.email());
-        createAndRegisterUser(request.email(), request.password(), request.firstName());
-    }
+//    @Transactional
+//    public void register(RegistrationRequest request) {
+//        log.debug("Registering user with email: {}", request.email());
+//        createAndRegisterUser(request.email(), request.password(), request.firstName(), );
+//    }
 
-    private CreatedAccountDto createAndRegisterUser(String email, String password, String firstName) {
+    private CreatedAccountDto createAndRegisterUser(String email, String password, String firstName, String lastName, String phoneNumber) {
         accountService.validateEmailNotRegistered(email);
 
         Role role = roleRepository.findByName(UserRole.USER).orElseThrow(
@@ -62,7 +62,7 @@ public class UserService {
                     String.format("Role with name: %s not found", UserRole.USER));
             });
 
-        CreatedAccountDto accountDto = accountService.createAccount(email, password, role, firstName);
+        CreatedAccountDto accountDto = accountService.createAccount(email, password, role, firstName, lastName, phoneNumber);
 
         Account account = accountDto.getAccount();
 
